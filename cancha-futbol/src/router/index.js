@@ -12,6 +12,11 @@ const router = createRouter({
       path: "/busqueda",
       name: "busqueda",
       component: () => import("../views/BusquedaView.vue"),
+    },
+    {
+      path: "/nuestroContacto",
+      name: "nuestroContacto",
+      component: () => import("../views/NuestroContacto.vue"),
     }
   ],
 });

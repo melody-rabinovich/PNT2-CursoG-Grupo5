@@ -1,5 +1,5 @@
 <template>
-    <div id="slideShow" class="carousel slide" data-ride="carousel">
+ <!--  <div id="slideShow" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
           <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -32,7 +32,26 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
-      </div>
+      </div>-->
+<!-- COMENT-->
+      <div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Cancha_sintetica.jpg/800px-Cancha_sintetica.jpg" alt="First slide">    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fquieninvento.org%2Fwp-content%2Fuploads%2F2013%2F06%2FJugador-de-Futbol.jpg&f=1&nofb=1&ipt=fa12e8acad9cb306a08b04a86bdaf032b89f20429af2c1a8999fe7127b72f1b4&ipo=images" alt="First slide">    </div>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="https://images5.fanpop.com/image/photos/26600000/soccer-soccer-26649442-2560-1600.jpg" alt="First slide">    </div>
+    </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </template>
 
 <script>

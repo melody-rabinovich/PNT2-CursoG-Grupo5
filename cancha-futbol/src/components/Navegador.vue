@@ -13,7 +13,7 @@
           <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
         </li>
         <li class="nav-item">
-            <router-link to="/">Contacto</router-link>
+            <router-link to="/nuestroContacto">Contacto</router-link>
         </li>
         <li class="nav-item dropdown">
             <router-link to="/busqueda">Busqueda</router-link>
