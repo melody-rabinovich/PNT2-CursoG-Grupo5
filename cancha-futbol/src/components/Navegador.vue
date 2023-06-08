@@ -48,10 +48,16 @@
     </div>
   </nav>
 -->
-
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <!-- Container wrapper -->
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <!-- Navbar brand-->
+      <a class="navbar-brand" href="#">
+        <img src="../icons/balls_1_footbal.svg" alt="icono" class="icono" />
+        CANCHAPP</a
+      >
+      <!-- Toggle button -->
       <button
         class="navbar-toggler"
         type="button"
@@ -66,10 +72,12 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link to="/">Go to Home</router-link>
+            <router-link class="nav-link text-white" to="/">Home</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/">Contacto</router-link>
+            <router-link class="nav-link text-white" to="/"
+              >Contacto</router-link
+            >
           </li>
           <li class="nav-item dropdown">
             <a
@@ -92,7 +100,11 @@
             <a class="nav-link disabled">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
+
+        <button class="btn btn-success">Log in</button>
+        <button class="btn btn-outline-success ms-2">Sign in</button>
+
+        <!--<form class="d-flex" role="search">
           <input
             class="form-control me-2"
             type="search"
@@ -100,7 +112,7 @@
             aria-label="Search"
           />
           <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form>-->
       </div>
     </div>
   </nav>
@@ -126,3 +138,13 @@ export default {
   },
 };
 </script>
+
+<style>
+.icono {
+  width: 35px;
+  height: 35px;
+}
+.navbar-brand {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</style>
