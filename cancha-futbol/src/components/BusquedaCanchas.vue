@@ -36,7 +36,7 @@
   <script>
 
     export default {
-      name: 'BusquedaCanchas',
+      name: 'BusquedaCanchasComp',
       data() {
         return {
           canchas: [
