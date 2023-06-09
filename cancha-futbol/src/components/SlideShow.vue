@@ -3,7 +3,7 @@
     <!-- Carousel Bootstrap -->
     <!-- <div class="container">
       <div class="row"> -->
-        <div class="col-lg-12 carousel">
+        <div class="col-lg-12 carousel shadow-lg rounded">
           <div id="carouselExampleCaptions" class="carousel slide">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
