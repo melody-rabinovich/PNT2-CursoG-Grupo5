@@ -8,26 +8,33 @@
         <!-- estaría bueno que lleve al buscador -->
         <div class="left-div pasoItemIzquierda pasos_item">
             <h3>1. Buscá tu cancha más cercana </h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse cupiditate, explicabo, mollitia, fugiat animi accusamus iste commodi eos sunt natus assumenda doloremque necessitatibus odio nemo ratione neque fuga dolor a?</p>
+            <p>Encontrá de manera rápida y sencilla las canchas disponibles más cercanas a tu ubicación. 
+                Utilizá nuestro buscador para encontrar la cancha perfecta para tu partido.</p>
         </div>
     </div>
     <div class="col-md-6">
       <div class="right-div pasoItemDerecha pasos_item">
         <h3>2. Consultá los horarios disponibles</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus consequuntur at hic velit impedit libero amet magni soluta doloremque cum nihil repellat, repudiandae tempora ad voluptate dolorem alias. Ex, vel!</p>
+        <p>Revisá los horarios disponibles para cada cancha y elegí aquellos que se ajusten mejor a tus 
+            necesidades. Obtené información actualizada sobre la disponibilidad de las canchas y asegurate 
+            de reservar en el momento ideal.</p>
       </div>
     </div>
-    <!-- Repite el mismo patrón para más elementos -->
+
     <div class="col-md-6">
         <div class="left-div pasoItemIzquierda pasos_item">
-            <h3>3</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse cupiditate, explicabo, mollitia, fugiat animi accusamus iste commodi eos sunt natus assumenda doloremque necessitatibus odio nemo ratione neque fuga dolor a?</p>
+            <h3>3. Selecciona horario y fecha deseada</h3>
+            <p>Elegí el horario y la fecha perfecta para tu reserva. 
+                Seleccioná el día en el que desees jugar y el horario que mejor se adapte a tus preferencias.
+                Disfrutá de la flexibilidad de elegir el momento adecuado para disfrutar del deporte. </p>
         </div>
     </div>
     <div class="col-md-6">
       <div class="right-div pasoItemDerecha pasos_item">
-        <h3>4</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus consequuntur at hic velit impedit libero amet magni soluta doloremque cum nihil repellat, repudiandae tempora ad voluptate dolorem alias. Ex, vel!</p>
+        <h3>4. Confirma tu reserva</h3>
+        <p>Verificá los detalles de tu reserva y confirmá todos los datos para asegurarte de que estén 
+            correctos. Revisá la cancha seleccionada, el horario, la fecha y cualquier otro detalle 
+            importante. Una vez confirmada, ¡Estarás listo para disfrutar de tu juego en la cancha reservada!</p>
       </div>
     </div>
   </div>
@@ -55,6 +62,7 @@
         margin:2em;
         padding:1em;
         border-radius: 17px;
+        height: 11rem;
     }
     .pasoItemIzquierda{
         float:left;
