@@ -49,7 +49,7 @@
   </nav>
 -->
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
     <!-- Container wrapper -->
     <div class="container-fluid">
       <!-- Navbar brand-->
@@ -145,11 +145,12 @@ export default {
 </script>
 
 <style>
-.icono {
-  width: 35px;
-  height: 35px;
-}
-.navbar-brand {
-  font-family: Arial, Helvetica, sans-serif;
-}
+  .icono {
+    width: 35px;
+    height: 35px;
+  }
+  .navbar-brand {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
 </style>
