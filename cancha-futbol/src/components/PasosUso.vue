@@ -23,7 +23,7 @@
 
     <div class="col-md-6">
         <div class="left-div pasoItemIzquierda pasos_item">
-            <h3>3. Selecciona horario y fecha deseada</h3>
+            <h3>3. Seleccioná horario y fecha deseada</h3>
             <p>Elegí el horario y la fecha perfecta para tu reserva. 
                 Seleccioná el día en el que desees jugar y el horario que mejor se adapte a tus preferencias.
                 Disfrutá de la flexibilidad de elegir el momento adecuado para disfrutar del deporte. </p>
@@ -31,7 +31,7 @@
     </div>
     <div class="col-md-6">
       <div class="right-div pasoItemDerecha pasos_item">
-        <h3>4. Confirma tu reserva</h3>
+        <h3>4. Confirmá tu reserva</h3>
         <p>Verificá los detalles de tu reserva y confirmá todos los datos para asegurarte de que estén 
             correctos. Revisá la cancha seleccionada, el horario, la fecha y cualquier otro detalle 
             importante. Una vez confirmada, ¡Estarás listo para disfrutar de tu juego en la cancha reservada!</p>
