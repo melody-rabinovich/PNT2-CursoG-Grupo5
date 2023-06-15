@@ -1,17 +1,22 @@
 
   <template>
-<div>
-    <h1>Hola soi el jom</h1>
-    <SlideShow/>
-</div>
+  <div>
+      <SlideShow/>
+  </div>
+  <div>
+      <PasosUso/>
+  </div>
 
   </template>
   <script>
-import SlideShow from '../components/SlideShow.vue'
+import SlideShow from '../components/SlideShow.vue';
+import PasosUso from '../components/PasosUso.vue';
+
     export default {
       name: 'HomeView',
       components: {
-        SlideShow
+        SlideShow,
+        PasosUso
   },
       data() {
         return {
