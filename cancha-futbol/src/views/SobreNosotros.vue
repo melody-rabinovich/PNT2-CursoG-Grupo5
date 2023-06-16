@@ -27,6 +27,7 @@
           <ul class="list-group">
             <li class="list-group-item">Lucas Alonso</li>
             <li class="list-group-item">Ivan Beltram</li>
+            <li class="list-group-item">Matías Beltram</li>
             <li class="list-group-item">Lara Kañevsky</li>
             <li class="list-group-item">Melody Rabinovich</li>
           </ul>
