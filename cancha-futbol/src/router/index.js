@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
   history: createWebHistory("./"),
@@ -6,14 +6,19 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component:  () => import("../views/HomeView.vue"),
+      component: () => import("../views/HomeView.vue"),
     },
     {
       path: "/busqueda",
       name: "busqueda",
       component: () => import("../views/BusquedaView.vue"),
-    }
+    },
+    {
+      path: "/CanchasView",
+      name: "CanchasView",
+      component: () => import("../views/CanchasView"),
+    },
   ],
 });
 
-export default router
+export default router;
