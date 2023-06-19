@@ -12,6 +12,11 @@ const router = createRouter({
       path: "/busqueda",
       name: "busqueda",
       component: () => import("../views/BusquedaView.vue"),
+    },
+    {
+      path: "/VistaRandom",
+      name: "kesesto",
+      component: () => import("../views/VistaRandom.vue"),
     }
   ],
 });
