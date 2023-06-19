@@ -12,6 +12,11 @@ const router = createRouter({
       path: "/busqueda",
       name: "busqueda",
       component: () => import("../views/BusquedaView.vue"),
+    },
+    {
+      path: '/realizar-reserva',
+      name: "RealizarReservaView",
+      component: () => import("../views/RealizarReservaView.vue"),
     }
   ],
 });

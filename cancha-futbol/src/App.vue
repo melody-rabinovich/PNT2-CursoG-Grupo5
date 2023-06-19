@@ -16,3 +16,8 @@ export default {
 }
 </script>
 
+<style>
+body {
+  background-color: #3780bc; /* Cambia el color de fondo aquí */
+}
+</style>
