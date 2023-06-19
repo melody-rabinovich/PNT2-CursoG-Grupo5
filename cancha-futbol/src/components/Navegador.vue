@@ -84,6 +84,11 @@
               >Busqueda</router-link
             >
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link text-white" to="/VistaRandom"
+              >Una bonita vista random</router-link
+            >
+          </li>
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
