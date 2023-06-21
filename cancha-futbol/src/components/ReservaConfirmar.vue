@@ -4,6 +4,6 @@
 
 <script>
     export default {
-        name: "Reserva",
+        name: "ReservaConfirmar",
     };
 </script>

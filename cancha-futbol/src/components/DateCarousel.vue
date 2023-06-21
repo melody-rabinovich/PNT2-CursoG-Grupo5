@@ -6,8 +6,9 @@
       :key="index"
       class="box_date"
       :data-id="date.id"
+      @click="createGrid(date)"
     >
-      <span class="dia">{{ date.day.toUpperCase() }}</span>
+      <span v-bind:class = "(date.enabled)?'':'disabled'" class="dia">{{ date.day.toUpperCase() }}</span>
       <span class="mes">{{ date.month.toUpperCase() }}</span>
       <span class="nro">{{ date.date }}</span>
     </div>
@@ -59,6 +60,7 @@ export default {
           month,
           date: dateNumber,
           id,
+          enabled:date>=this.addDays(new Date(),-1)
         });
       }
     },
@@ -74,11 +76,53 @@ export default {
       this.dates = []; // Reiniciar el arreglo de fechas
       this.generateDates(); // Generar las nuevas fechas
     },
+    addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+},
+createGrid(date) {
+  console.log("Clicked date:", date);
+
+const gridDiv = document.createElement("table");
+gridDiv.classList.add("date-table");
+
+const numberOfCells = 24;
+const timeInterval = 1; // In hours
+const timeRow = document.createElement("tr");
+const selectionRow = document.createElement("tr");
+const header = document.createElement("thead")
+const body = document.createElement("tbody")
+header.appendChild(timeRow)
+body.appendChild(selectionRow)
+for (let i = 0; i < numberOfCells; i++) {
+  
+  const timeCell = document.createElement("th");
+
+  const startTime = i * timeInterval;
+
+  timeCell.textContent = `${startTime}:00`;
+
+  timeRow.appendChild(timeCell)
+  selectionRow.appendChild(document.createElement("td"))
+
+}
+
+  gridDiv.appendChild(timeRow);
+  gridDiv.appendChild(selectionRow);
+document.querySelector(".container").appendChild(gridDiv);
+    },
   },
 };
 </script>
 
 <style>
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 .dia {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -123,5 +167,19 @@ export default {
   margin-right: 10px;
   border: 1px;
   border-radius: 2px;
+}
+.date-table{
+  background-color: aliceblue;
+  width: 80%;
+  margin: auto;
+}
+td,th{
+  border-color: rgb(0, 0, 0);
+    border-style: solid;
+    border-width: 1px;
+    padding: 6px;
+}
+td{
+  height: 70px;
 }
 </style>
