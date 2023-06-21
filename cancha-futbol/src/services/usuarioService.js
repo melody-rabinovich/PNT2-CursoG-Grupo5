@@ -28,13 +28,11 @@ export default {
         }
         */
     },
-    /*
-    login(usuario) {
+    login(credenciales) {
         //Utilizo api Client que es el objeto inicializado de axios
-        return apiClient.post('/users/login', usuario);
+        return apiClient.post('/usuarios/login', credenciales);
                // axios pero instanciado con la direccion y las caracteristicas de la peticion.
     },
-    */
     cambiarNombre(id, nuevoNombre){
         return apiClient.put('/usuarios/'+id+'/cambiarnombre', nuevoNombre);
         /*
