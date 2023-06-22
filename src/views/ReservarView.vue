@@ -62,10 +62,11 @@
                 RESERVAR
             </button>
             <button
-            v-if="isAdmin"
+            v-if="isAdmin()"
               class="button button-reserva"
               @click="verReservasCancha(cancha.numero)">
                 VER RESERVAS
+                {{isAdmin() }}
             </button>
             </div>
           </td>
@@ -104,6 +105,7 @@ export default {
       mesReserva: null,
       diaReserva: null,
       horaReserva: null
+//isAdmin:false
     };
   },
   mounted() {
@@ -264,7 +266,7 @@ export default {
         }
       }
     },
-    async isAdmin(){
+    isAdmin(){
       const authStore = useAuthStore();
       return authStore.isAdmin;
     },
