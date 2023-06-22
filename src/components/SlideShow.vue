@@ -60,19 +60,19 @@ export default {
       paginas: [
         {
           nombre: "Cancha Futbol 5",
-          descripcion: "Some representative placeholder content for the first slide.",
+          descripcion: "Cancha Juan Román Riquelme.",
           url:
             "https://clubforeverlaplata.files.wordpress.com/2016/04/71ffc-inaguracionforeverfutbol5030.jpg?w=775&zoom=2",          
         },
         {
           nombre: "Cancha Futbol 8",
-          descripcion: "Some representative placeholder content for the second slide.",
+          descripcion: "Cancha Diego Maradona.",
           url:
             "https://www.hoysejuega.com/uploads/Modules/ImagenesComplejos/800_600_foto014.jpg",
         },
         {
           nombre: "Cancha Futbol 11",
-          descripcion: "Some representative placeholder content for the third slide.",
+          descripcion: "Cancha Lionel Messi.",
           url:
             "https://www.hoysejuega.com/uploads/Modules/ImagenesComplejos/800_600_power-6-canchas-de-futbol.jpg",
         },

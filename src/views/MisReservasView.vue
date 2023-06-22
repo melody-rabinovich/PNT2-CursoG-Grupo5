@@ -18,7 +18,7 @@
         <tr v-for="(reserva, index) in reservas" :key="index">
           <td>{{ reserva.mes+1 }}</td>
           <td>{{ reserva.dia+1 }}</td>
-          <td>{{ reserva.hora }}</td>
+          <td>{{ reserva.hora }}:00</td>
           <td>{{ reserva.idCancha }}</td>
           <td>{{ reserva.estado }}</td>
           <td>

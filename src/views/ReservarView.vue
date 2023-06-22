@@ -62,7 +62,7 @@
                 RESERVAR
             </button>
             <button
-            v-if="isAdmin == 'true'"
+            v-if="isAdmin"
               class="button button-reserva"
               @click="verReservasCancha(cancha.numero)">
                 VER RESERVAS
