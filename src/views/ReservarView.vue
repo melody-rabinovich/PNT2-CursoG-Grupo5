@@ -62,7 +62,7 @@
                 RESERVAR
             </button>
             <button
-            v-if="isAdmin"
+            v-if="isAdmin == 'true'"
               class="button button-reserva"
               @click="verReservasCancha(cancha.numero)">
                 VER RESERVAS
@@ -257,7 +257,11 @@ export default {
         this.$router.push('/MisReservas');
       } catch (error) {
         console.log("Se produjo un error: ", error);
-        alert(error.response.data.error);
+        if (error.response.data.error == 'El token no es válido.'){
+          alert("No ha iniciado sesión.");
+        } else {
+          alert(error.response.data.error);
+        }
       }
     },
     async isAdmin(){
