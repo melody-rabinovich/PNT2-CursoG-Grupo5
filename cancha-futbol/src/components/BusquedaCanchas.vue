@@ -1,3 +1,5 @@
+
+
 <template>
     <div class="ui container">
     <h1>Busqueda de canchas</h1>
@@ -15,6 +17,7 @@
         </thead>
         <tbody>
           <tr v-for="(cancha, index) in sortedCanchas" :key="index">
+            <DateCarousel/>
             <td>
               <img :src="cancha.photoUrl" class="ui mini rounded image" />
             </td>
@@ -34,9 +37,12 @@
   </template>
   
   <script>
-
+import DateCarousel from './DateCarrousel.vue';
     export default {
       name: 'BusquedaCanchas',
+      components: {
+            DateCarousel
+        },
       data() {
         return {
           canchas: [

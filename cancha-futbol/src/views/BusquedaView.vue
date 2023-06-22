@@ -34,9 +34,12 @@
   </template>
   
   <script>
-
+import BusquedaCanchas from '../components/BusquedaCanchas.vue';
     export default {
       name: 'BusquedaCanchas',
+      components {
+        BusquedaCanchas
+      },
       data() {
         return {
           canchas: [
