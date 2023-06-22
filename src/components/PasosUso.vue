@@ -1,5 +1,5 @@
 <template>
-    <h1 class="text-center" style="color: aliceblue">
+    <h1 class="text-center" style="color: rgb(18, 137, 242)">
       Reservá tu cancha en 4 pasos
     </h1>
   

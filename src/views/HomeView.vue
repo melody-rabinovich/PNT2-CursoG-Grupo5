@@ -1,15 +1,14 @@
 <template>
-  <div>
+  <div style="margin-top: 60px">
+    <Navegador/>
     <SlideShow />
-  </div>
-  <div>
     <PasosUso />
   </div>
   <div>
     <button class="button button-reserva">
       <router-link
         :to="{
-          path: '/realizar-reserva',
+          path: '/Reservar',
           query: reservaSeleccionada,
         }"
       >
@@ -19,29 +18,20 @@
   </div>
 </template>
 <script>
+import Navegador from '../components/Navegador.vue'
 import SlideShow from "../components/SlideShow.vue";
 import PasosUso from "../components/PasosUso.vue";
 
 export default {
   name: "HomeView",
   components: {
+    Navegador,
     SlideShow,
     PasosUso,
 },
   data() {
     return {
-      paginas: [
-        {
-          nombre: "Home",
-          id: "1",
-          url: "https://randomuser.me/api/portraits/thumb/women/9.jpg",
-        },
-        {
-          nombre: "Contacto",
-          id: "2",
-          url: "https://randomuser.me/api/portraits/thumb/women/9.jpg",
-        },
-      ],
+
     };
   },
 };
