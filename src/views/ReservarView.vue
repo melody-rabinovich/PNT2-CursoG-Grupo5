@@ -46,7 +46,7 @@
                     :disabled="botonseleccionado(horaDisponible, cancha.numero)"
                     :class="{ 'button-selected': botonseleccionado(horaDisponible, cancha.numero) }"
                   >
-                    {{ horaDisponible }}
+                    {{ horaDisponible }}:00
                   </button>
                 </td>
               </tr>

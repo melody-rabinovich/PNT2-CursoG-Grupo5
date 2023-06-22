@@ -1,65 +1,29 @@
 <template>
-  <!-- Carousel Bootstrap -->
-  <!-- <div class="container">
-      <div class="row"> -->
   <div class="col-lg-12 carousel shadow-lg rounded">
     <div id="carouselExampleCaptions" class="carousel slide">
       <div class="carousel-indicators">
         <button
+          v-for="(pagina, index) in paginas"
+          :key="index"
           type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
+          :data-bs-target="'#carouselExampleCaptions'"
+          :data-bs-slide-to="index"
+          :class="{ active: index === activeIndex }"
+          :aria-label="`Slide ${index + 1}`"
         ></button>
       </div>
 
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img
-            src="https://clubforeverlaplata.files.wordpress.com/2016/04/71ffc-inaguracionforeverfutbol5030.jpg?w=775&zoom=2"
-            class="d-block w-100 carousel_img"
-            alt="una cancha"
-          />
+        <div
+          v-for="(pagina, index) in paginas"
+          :key="index"
+          class="carousel-item"
+          :class="{ active: index === activeIndex }"
+        >
+          <img :src="pagina.url" class="d-block w-100 carousel_img" :alt="pagina.nombre" />
           <div class="carousel-caption d-none d-md-block my-custom-border">
-            <h5>Cancha Futbol 5</h5>
-            <p>Some representative placeholder content for the first slide.</p>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <img
-            src="https://www.hoysejuega.com/uploads/Modules/ImagenesComplejos/800_600_foto014.jpg"
-            class="d-block w-100 carousel_img"
-            alt="..."
-          />
-          <div class="carousel-caption d-none d-md-block my-custom-border">
-            <h5>Cancha Futbol 8</h5>
-            <p>Some representative placeholder content for the second slide.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img
-            src="https://www.hoysejuega.com/uploads/Modules/ImagenesComplejos/800_600_power-6-canchas-de-futbol.jpg"
-            class="d-block w-100 carousel_img"
-            alt="..."
-          />
-          <div class="carousel-caption d-none d-md-block my-custom-border">
-            <h5>Cancha Futbol 11</h5>
-            <p>Some representative placeholder content for the third slide.</p>
+            <h5>{{ pagina.nombre }}</h5>
+            <p>{{ pagina.descripcion }}</p>
           </div>
         </div>
       </div>
@@ -69,6 +33,7 @@
         type="button"
         data-bs-target="#carouselExampleCaptions"
         data-bs-slide="prev"
+        @click="previousSlide"
       >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
@@ -78,51 +43,13 @@
         type="button"
         data-bs-target="#carouselExampleCaptions"
         data-bs-slide="next"
+        @click="nextSlide"
       >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
     </div>
   </div>
-  <!--         
-      </div>
-    </div> -->
-
-  <!-- carousel lara
-    <div id="slideShow" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="d-block w-100" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Cancha_sintetica.jpg/800px-Cancha_sintetica.jpg" alt="First slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="aaaa" alt="Second slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="aaaaa" alt="Third slide">
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" onclick='let currentPhoto = document.querySelector("#slideShow .active")
-        currentPhoto.classList.toggle("active");
-    console.log("current",currentPhoto);
-    console.log("next",currentPhoto.nextSibling);
-    currentPhoto.nextSibling.classList.toggle("active");'>
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" onclick='let currentPhoto = document.querySelector("#slideShow .active")
-        currentPhoto.classList.toggle("active");
-    console.log("current",currentPhoto);
-    console.log("next",currentPhoto.nextSibling);
-    currentPhoto.nextSibling.classList.toggle("active");'>
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div> -->
 </template>
 
 <script>
@@ -132,25 +59,33 @@ export default {
     return {
       paginas: [
         {
-          nombre: "Home",
-          id: "1",
-          url: "https://randomuser.me/api/portraits/thumb/women/9.jpg",
+          nombre: "Cancha Futbol 5",
+          descripcion: "Some representative placeholder content for the first slide.",
+          url:
+            "https://clubforeverlaplata.files.wordpress.com/2016/04/71ffc-inaguracionforeverfutbol5030.jpg?w=775&zoom=2",          
         },
         {
-          nombre: "Contacto",
-          id: "2",
-          url: "https://randomuser.me/api/portraits/thumb/women/9.jpg",
+          nombre: "Cancha Futbol 8",
+          descripcion: "Some representative placeholder content for the second slide.",
+          url:
+            "https://www.hoysejuega.com/uploads/Modules/ImagenesComplejos/800_600_foto014.jpg",
+        },
+        {
+          nombre: "Cancha Futbol 11",
+          descripcion: "Some representative placeholder content for the third slide.",
+          url:
+            "https://www.hoysejuega.com/uploads/Modules/ImagenesComplejos/800_600_power-6-canchas-de-futbol.jpg",
         },
       ],
+      activeIndex: 0,
     };
   },
   methods: {
-    nextSlideShow() {
-      //     let currentPhoto = document.querySelector("#slideShow .active")
-      //     currentPhoto.classList.toggle("active");
-      // console.log("current",currentPhoto);
-      // console.log("next",currentPhoto.nextSibling);
-      // currentPhoto.nextSibling.classList.toggle("active");
+    nextSlide() {
+      this.activeIndex = (this.activeIndex + 1) % this.paginas.length;
+    },
+    previousSlide() {
+      this.activeIndex = (this.activeIndex - 1 + this.paginas.length) % this.paginas.length;
     },
   },
 };
@@ -174,7 +109,5 @@ export default {
   background-color: rgba(245, 245, 220, 0.262);
   color: rgb(0, 0, 0);
 }
-
-
 
 </style>
