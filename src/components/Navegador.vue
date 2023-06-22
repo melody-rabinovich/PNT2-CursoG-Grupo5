@@ -32,7 +32,7 @@
             >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link text-white" to="/"
+            <router-link class="nav-link text-white" to="/SobreNosotros"
               >Contacto</router-link
             >
           </li>
