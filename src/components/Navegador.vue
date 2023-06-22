@@ -1,14 +1,13 @@
 <template>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
-    <!-- Container wrapper -->
+  <nav
+    class="navbar navbar-expand-lg bg-body-tertiary fixed-top"
+    data-bs-theme="dark"
+  >
     <div class="container-fluid">
-      <!-- Navbar brand-->
-      <a class="navbar-brand" @click="redirectToHome">
-        <img src="../icons/balls_1_footbal.svg" alt="icono" class="icono" />
-        CANCHAPP</a
+      <router-link class="navbar-brand" href="#" to="/" title="Ir al inicio">
+        <img src="../icons/football.svg" alt="icono" class="icono" />
+        CANCHAPP</router-link
       >
-      <!-- Toggle button -->
       <button
         class="navbar-toggler"
         type="button"
@@ -23,41 +22,26 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link text-white" to="/">Home</router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link text-white" to="/"
               >Contacto</router-link
             >
           </li>
           <li class="nav-item">
             <router-link class="nav-link text-white" to="/busqueda"
-              >Busqueda</router-link
-            >
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link text-white" to="/VistaRandom"
-              >Una bonita vista random</router-link
-            >
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link text-white" to="/"
-            v-if="this.isAuthenticated"
-              >Mi token es {{ token }}... y mi rol es {{ rol }}</router-link
+              >Buscar Cancha</router-link
             >
           </li>
         </ul>
-
         <button class="btn btn-success" @click="redirectToLogin" v-if="!this.isAuthenticated">Iniciar sesión</button>
         <button class="btn btn-outline-success ms-2" @click="redirectToRegister" v-if="!this.isAuthenticated">Registrarse</button>
         <button class="btn btn-secondary ms-2" @click="logout" v-if="this.isAuthenticated">Cerrar sesión</button>
-
       </div>
     </div>
   </nav>
 </template>
 
 <script>
+
 import { useAuthStore } from '../stores/authStore.js';
 
 export default {
@@ -101,11 +85,16 @@ export default {
 </script>
 
 <style>
-  .icono {
-    width: 35px;
-    height: 35px;
-  }
-  .navbar-brand {
-    font-family: Arial, Helvetica, sans-serif;
-  }
+.icono {
+  width: 35px;
+  height: 35px;
+}
+.navbar-brand {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-item:hover {
+  background-color: #3b434a;
+  border-radius: 3px;
+}
 </style>

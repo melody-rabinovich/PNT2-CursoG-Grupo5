@@ -14,9 +14,9 @@ const router = createRouter({
       component: () => import("../views/BusquedaView.vue"),
     },
     {
-      path: "/VistaRandom",
-      name: "kesesto",
-      component: () => import("../views/VistaRandom.vue"),
+      path: "/Realizar-Reserva",
+      name: "RealizarReserva",
+      component: () => import("../views/RealizarReservaView.vue"),
     },
     {
       path: "/Login",

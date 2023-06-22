@@ -2,36 +2,39 @@
 <div>
   <Navegador/>
   <div style="margin-top: 50px" class="register">
-    <h1 class="title">Sign Up</h1>
+    <h1 class="title">Registrarse</h1>
     <form action class="form" @submit.prevent="register">
-      <label class="form-label" for="#email">Email:</label>
+      <label class="form-label" for="#miNombre">Nombre completo:</label>
       <input
-        v-model="email"
+        v-model="miNombre"
+        class="form-input"
+        type="text"
+        id="miNombre"
+        required
+        placeholder="Nombre completo"
+      />
+      <label class="form-label" for="#miMail">Correo electrónico:</label>
+      <input
+        v-model="miMail"
         class="form-input"
         type="email"
-        id="email"
+        id="miMail"
         required
-        placeholder="Email"
+        placeholder="Correo electrónico"
       />
-      <label class="form-label" for="#password">Password:</label>
+      <label class="form-label" for="#miPass">Contraseña:</label>
       <input
-        v-model="password"
+        v-model="miPass"
         class="form-input"
         type="password"
-        id="password"
-        placeholder="Password"
+        id="miPass"
+        required
+        placeholder="Contraseña"
       />
-      <label class="form-label" for="#password-repeat"
-        >Repite la contraeña:</label
-      >
-      <input
-        v-model="passwordRepeat"
-        class="form-input"
-        type="password"
-        id="password-repeat"
-        placeholder="Password"
-      />
-      <input class="form-submit" type="submit" value="Sign Up" />
+      <p v-if="error" class="error">
+        {{ this.error }}
+      </p>
+      <input class="form-submit" type="submit" value="Registrarse" />
     </form>
   </div>
 </div>
@@ -39,13 +42,38 @@
 
 <script>
 import Navegador from '../components/Navegador.vue'
+import usuarioService from '../services/usuarioService.js';
 
 export default {
   name: 'RegisterView',
   components: {
     Navegador
   },
-}
+  data: () => ({
+    miNombre: "",
+    miMail: "",
+    miPass: "",
+    error: "",
+  }),
+  methods: {
+    async register() {
+      const credentials = {
+        nombre: this.miNombre,
+        mail: this.miMail,
+        password: this.miPass
+      };
+      console.log(credentials);
+      usuarioService.register(credentials)
+      .then(() => {
+        this.$router.push('/login');
+      })
+      .catch((error) => {
+        this.error = error.response.data.error;
+        console.log('error:', error.response);
+      })
+    }
+  },
+};
 </script>
 
 <style lang="scss" scoped>

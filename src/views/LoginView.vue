@@ -2,7 +2,7 @@
 <div>
   <Navegador/>
   <div style="margin-top: 50px" class="login">
-    <h1 class="title">Login in the page</h1>
+    <h1 class="title">Iniciar sesión</h1>
     <form action class="form" @submit.prevent="login">
       <label class="form-label" for="#miMail">Correo electrónico:</label>
       <input
@@ -19,16 +19,17 @@
         class="form-input"
         type="password"
         id="miPass"
+        required
         placeholder="Contraseña"
       />
       <p v-if="error" class="error">
         Has introducido mal el email o la contraseña.
       </p>
-      <input class="form-submit" type="submit" value="Login" />
+      <input class="form-submit" type="submit" value="Iniciar sesión" />
     </form>
     <p class="msg">
       ¿No tienes cuenta?
-      <router-link to="/Register">Regístrate</router-link>
+      <router-link to="/Register">Registrate</router-link>
     </p>
   </div>
 </div>
@@ -36,8 +37,6 @@
 
 <script>
 import Navegador from '../components/Navegador.vue'
-//import axiosClient from "../services/axiosClient.js";
-//const apiClient = axiosClient.getApiClient();
 import usuarioService from '../services/usuarioService.js';
 import { useAuthStore } from '../stores/authStore.js';
 const authStore = useAuthStore();
