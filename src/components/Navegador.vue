@@ -22,8 +22,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link text-white" to="/Busqueda"
-              >Buscar cancha</router-link
+            <router-link class="nav-link text-white" to="/Reservar"
+              >Ver canchas</router-link
+            >
+          </li>
+          <li class="nav-item" v-if="this.isAuthenticated">
+            <router-link class="nav-link text-white" to="/MisReservas"
+              >Mis reservas</router-link
             >
           </li>
           <li class="nav-item">
@@ -45,7 +50,7 @@
 import { useAuthStore } from '../stores/authStore.js';
 
 export default {
-  name: "BusquedaCanchas",
+  name: "NavBar",
   data() {
     return {
       token: null,

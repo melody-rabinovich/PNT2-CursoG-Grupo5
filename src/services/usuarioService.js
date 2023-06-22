@@ -55,7 +55,7 @@ export default {
         */
     },
     cancelarReserva(id, idReserva){
-        return apiClient.delete('/usuarios/'+id+'/MisReservas'+idReserva);
+        return apiClient.delete('/usuarios/'+id+'/MisReservas/'+idReserva);
         /*
         {
             nada

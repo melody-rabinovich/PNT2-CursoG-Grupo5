@@ -61,6 +61,12 @@
               @click="reservar(cancha.numero)">
                 RESERVAR
             </button>
+            <button
+            v-if="isAdmin"
+              class="button button-reserva"
+              @click="verReservasCancha(cancha.numero)">
+                VER RESERVAS
+            </button>
             </div>
           </td>
         </tr>
@@ -81,7 +87,7 @@ import canchaService from '../services/canchaService.js';
 import { useAuthStore } from '../stores/authStore.js';
 
 export default {
-  name: "BusquedaCanchas",
+  name: "OpcionesReserva",
   components: {
     Navegador,
   },
@@ -139,7 +145,7 @@ export default {
       try {
         const response = await canchaService.getCanchas();
         this.canchas = response.data; // Suponiendo que los datos se encuentran en la propiedad "data" de la respuesta
-        console.log("Esta es la primera cancha. Se llama : "+this.canchas[0].nombre);
+        console.log("Esta es la primera cancha. Se llama: "+this.canchas[0].nombre);
       } catch (error) {
         console.error("Error al cargar las canchas:", error);
       }
@@ -244,14 +250,22 @@ export default {
         "dia": this.diaReserva,
         "hora": this.horaReserva,
         "idUsuario": authStore._id,
-    }
-    try{
-      const response = await canchaService.reservar(numeroCancha, datos);
-      console.log("Se generó la reserva: "+response.data);
-      this.$router.push('/');//Pushear a /MisReservas o similar
-    } catch (error) {
-      console.log("Se produjo un error: ", error);
-    }
+      }
+      try{
+        const response = await canchaService.reservar(numeroCancha, datos);
+        console.log("Se generó la reserva: "+response.data);
+        this.$router.push('/MisReservas');
+      } catch (error) {
+        console.log("Se produjo un error: ", error);
+        alert(error.response.data.error);
+      }
+    },
+    async isAdmin(){
+      const authStore = useAuthStore();
+      return authStore.isAdmin;
+    },
+    async verReservasCancha(idCancha){
+      this.$router.push('/Reservas/'+idCancha);
     },
   },
   computed: {

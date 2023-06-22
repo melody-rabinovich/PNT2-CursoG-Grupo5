@@ -5,13 +5,18 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "Index",
       component:  () => import("../views/HomeView.vue"),
     },
     {
-      path: "/Busqueda",
-      name: "busqueda",
-      component: () => import("../views/BusquedaView.vue"),
+      path: "/Home",
+      name: "Home",
+      component:  () => import("../views/HomeView.vue"),
+    },
+    {
+      path: "/Reservar",
+      name: "Reservar",
+      component: () => import("../views/ReservarView.vue"),
     },
     {
       path: "/Login",
@@ -22,7 +27,17 @@ const router = createRouter({
       path: "/Register",
       name: "Registrarse",
       component: () => import("../views/RegisterView.vue"),
-    }
+    },
+    {
+      path: "/MisReservas",
+      name: "Mis reservas",
+      component: () => import("../views/MisReservasView.vue"),
+    },
+    {
+      path: "/Reservas/:idCancha",
+      name: "ReservasCancha",
+      component: () => import("../views/ReservasCanchaView.vue"),
+    },
   ],
 });
 

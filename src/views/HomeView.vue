@@ -8,7 +8,7 @@
     <button class="button button-reserva">
       <router-link
         :to="{
-          path: '/Busqueda',
+          path: '/Reservar',
           query: reservaSeleccionada,
         }"
       >
