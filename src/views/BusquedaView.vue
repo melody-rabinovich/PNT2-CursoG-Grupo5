@@ -3,46 +3,56 @@
   <Navegador/>
   <div class="container">
     <h3 class="ui center header">Realice sus reservas</h3>
-    <div>
-      <date-carousel />
+    <div class="date-carousel">
+    <button class="arrow-button" @click="previousWeek">&#8249;</button>
+    <div
+      v-for="(date, index) in dates"
+      :key="index"
+      class="box_date"
+      :data-id="date.id"
+      @click="setFecha(date)"
+    >
+      <span v-bind:class = "(date.enabled)?'':'disabled'" class="dia">{{ date.day.toUpperCase() }}</span>
+      <span class="mes">{{ date.month.toUpperCase() }}</span>
+      <span class="nro">{{ date.date }}</span>
+    </div>
+    <button class="arrow-button" @click="nextWeek">&#8250;</button>
     </div>
     <table class="ui celled table custom-table">
       <thead>
         <tr>
-          <th>Avatar</th>
-          <th @click="sortBy = 'nombreCancha'">Cancha</th>
-          <th @click="sortBy = 'horariosDisponibles'">HorariosDisponibles</th>
-          <th @click="sortBy = 'capacidad'">Capacidad</th>
-          <th @click="sortBy = 'precio'">Precio</th>
-          <th>Realizar Reserva</th>
+          <th>Número</th>
+          <th>Nombre</th>
+          <th>Horarios disponibles para el {{ diaSeleccionado }} de {{ mesSeleccionado }}</th>
+          <th>Tamaño</th>
+          <th>Precio</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(cancha, index) in sortedCanchas" :key="index">
-          <td>
-            <img :src="cancha.photoUrl" class="ui mini rounded image" />
-          </td>
-          <td>{{ cancha.nombreCancha }}</td>
+        <tr v-for="(cancha, index) in canchas" :key="index">
+          <td>{{ cancha.numero }}</td>
+          <td>{{ cancha.nombre }}</td>
           <td>
             <table>
               <tr>
                 <td
-                  v-for="horaDisponible in cancha.horariosDisponibles"
-                  :key="horaDisponible"
-                >
-                  <button
+                  v-for="(horaDisponible, index2) in this.horariosDisponibles[index]"
+                  :key="index2"
+                >{{ horaDisponible }}
+<!--                  <button
                     class="button"
                     :class="{ active: horaDisponible === cancha.horaSeleccionada }"
                     @click="seleccionarHora(horaDisponible, cancha)"
                     :disabled="!puedeReservar(cancha, horaDisponible)"
                   >
                     {{ horaDisponible }}
-                  </button>
+                  </button>-->
                 </td>
               </tr>
             </table>
           </td>
-          <td>{{ cancha.capacidad }}</td>
+          <td>{{ cancha.tamanio }}</td>
           <td>{{ cancha.precio }}</td>
           <td>
             <button
@@ -51,7 +61,7 @@
             >
               <router-link
                 :to="{
-                  path: '/realizar-reserva',
+                  path: '/RealizarReserva',
                   query: reservaSeleccionada,
                 }"
               >
@@ -63,7 +73,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <th colspan="6">{{ sortedCanchas.length }} canchas</th>
+          <th colspan="6">{{ canchas.length }} canchas</th>
         </tr>
       </tfoot>
     </table>
@@ -73,68 +83,134 @@
 
 <script>
 import Navegador from '../components/Navegador.vue'
-import DateCarousel from '@/components/DateCarousel.vue';
+import canchaService from '../services/canchaService.js';
 
 export default {
   name: "BusquedaCanchas",
-  components:{
-    DateCarousel,
+  components: {
     Navegador,
-},
-    data() {
+  },
+  data() {
     return {
-      canchas: [
-        {
-          nombreCancha: "Messi",
-          id: "1",
-          photoUrl: "https://randomuser.me/api/portraits/thumb/women/9.jpg",
-          horariosDisponibles: ["12:00", "17:40", "22:00"],
-          capacidad: 8,
-          precio: '$3000',
-          horaSeleccionada: null,
-        },
-        {
-          nombreCancha: "Canchita",
-          id: "2",
-          photoUrl: "https://randomuser.me/api/portraits/thumb/women/79.jpg",
-          horariosDisponibles: ["13:00", "14:00", "16:30"],
-          capacidad: 5,
-          precio: '$5000',
-          horaSeleccionada: null,
-        },
-        {
-          nombreCancha: "All Boys",
-          id: "3",
-          photoUrl: "https://randomuser.me/api/portraits/thumb/women/80.jpg",
-          horariosDisponibles: ["15:20", "18:00", "20:20"],
-          capacidad: 11,
-          precio: '$10000',
-          horaSeleccionada: null,
-        },
-      ],
-      sortBy: "horariosDisponibles",
-      filterBy: "",
+      dates: [],
+      currentWeek: new Date(), // Fecha actual
+      canchas: this.getCanchas(),
+      horariosDisponibles: [],
       horaSeleccionada: null,
+      diaSeleccionado: null,
+      mesSeleccionado: null,
     };
   },
+  mounted() {
+    this.generateDates();
+    const daysOfWeek = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+      const months = [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic",
+      ];
+    const date = new Date(this.currentWeek);
+    const day = daysOfWeek[date.getDay()];
+    const month = months[date.getMonth()];
+    const dateNumber = date.getDate();
+    const id = `${date.getMonth() + 1}.${dateNumber}.${date.getFullYear()}`;
+
+    const fechaInicializada = {
+      day,
+      month,
+      date: dateNumber,
+      id,
+      enabled:date>=this.addDays(new Date(),-1)
+    }
+
+    this.setFecha(fechaInicializada);
+
+  },
   methods: {
-    arraySorter(a, b) {
-      return a.length - b.length;
+    async getCanchas() {
+      try {
+        const response = await canchaService.getCanchas();
+        this.canchas = response.data; // Suponiendo que los datos se encuentran en la propiedad "data" de la respuesta
+        console.log("Esta es la primera cancha. Se llama : "+this.canchas[0].nombre);
+      } catch (error) {
+        console.error("Error al cargar las canchas:", error);
+      }
     },
-    numberSorter(a, b) {
-      return a - b;
+    generateDates() {
+      const daysOfWeek = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+      const months = [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic",
+      ];
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(this.currentWeek); // Clonar la fecha actual
+        date.setDate(date.getDate() + i);
+
+        const day = daysOfWeek[date.getDay()];
+        const month = months[date.getMonth()];
+        const dateNumber = date.getDate();
+        const id = `${date.getMonth() + 1}.${dateNumber}.${date.getFullYear()}`;
+
+        this.dates.push({
+          day,
+          month,
+          date: dateNumber,
+          id,
+          enabled:date>=this.addDays(new Date(),-1)
+        });
+      }
     },
-    stringSorter(a, b) {
-      return a.localeCompare(b);
+    previousWeek() {
+      this.currentWeek.setDate(this.currentWeek.getDate() - 7);
+      this.updateDates();
     },
-    sortByType(columnName) {
-      const sortingDictionary = {
-        nombreCancha: this.stringSorter,
-        horariosDisponibles: this.arraySorter,
-        capacidad: this.numberSorter,
-        precio: this.numberSorter,
-      };
-      return sortingDictionary[columnName] ?? (() => 1);
+    nextWeek() {
+      this.currentWeek.setDate(this.currentWeek.getDate() + 7);
+      this.updateDates();
+    },
+    updateDates() {
+      this.dates = []; // Reiniciar el arreglo de fechas
+      this.generateDates(); // Generar las nuevas fechas
+    },
+    addDays(date, days) {
+      var result = new Date(date);
+      result.setDate(result.getDate() + days);
+      return result;
+    },
+    async setFecha(date) {
+      this.horariosDisponibles = [];
+      this.mesSeleccionado = date.month;
+      this.diaSeleccionado = date.date;
+      console.log("Clicked date:", date);
+      let mesConsulta = ((new Date(date.id)).getMonth())+1;
+      let diaConsulta = ((new Date(date.id)).getDate());
+      console.log("Clicked month:", mesConsulta);
+      console.log("Clicked day:", diaConsulta);
+      for(let i = 0; i < this.canchas.length; i++){
+        this.horariosDisponibles.push((await canchaService.getDisponibilidadPorDia(this.canchas[i].numero, mesConsulta, diaConsulta)).data.response);
+      }
+      console.log(this.horariosDisponibles[0])
+      console.log(this.horariosDisponibles[1])
+      console.log(this.horariosDisponibles.length)
     },
     seleccionarHora(hora, cancha) {
       this.horaSeleccionada = hora;
@@ -150,15 +226,6 @@ export default {
     },
   },
   computed: {
-    sortedCanchas() {
-      return this.canchas
-        .map((cancha) => ({ ...cancha }))
-        .filter((cancha) => cancha.nombreCancha.includes(this.filterBy))
-        .sort((a, b) => {
-          let sortFunction = this.sortByType([this.sortBy]);
-          return sortFunction(a[this.sortBy], b[this.sortBy]);
-        });
-    },
     reservaSeleccionada() {
       const canchaSeleccionada = this.canchas.find(
         (cancha) => cancha.horaSeleccionada !== null
@@ -178,6 +245,74 @@ export default {
 </script>
 
 <style scoped>
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.dia {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #87b04e;
+  box-sizing: border-box;
+  flex-grow: 1; /* Ocupa todo el espacio disponible dentro de la caja */
+}
+
+.nro {
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: larger;
+}
+
+.date-carousel {
+  margin-top: 1rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.box_date {
+  width: 100px;
+  height: 75px;
+  margin-right: 10px;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 3px;
+  background-color: #ffffff;
+  display: flex; /* Utiliza flexbox para alinear el contenido */
+  flex-direction: column; /* Alinear el contenido en columnas */
+  justify-content: center; /* Centrar verticalmente el contenido */
+}
+
+.box_date:hover {
+  cursor: pointer;
+}
+
+.arrow-button {
+  margin-right: 10px;
+  border: 1px;
+  border-radius: 2px;
+}
+.date-table{
+  background-color: aliceblue;
+  width: 80%;
+  margin: auto;
+}
+td,th{
+  border-color: rgb(0, 0, 0);
+    border-style: solid;
+    border-width: 1px;
+    padding: 6px;
+}
+td{
+  height: 70px;
+}
+
+
 .ui.container h1 {
   margin-top: 1rem;
 }
@@ -288,4 +423,5 @@ input {
 .filter-container {
   margin-bottom: 10px;
 }
+
 </style>

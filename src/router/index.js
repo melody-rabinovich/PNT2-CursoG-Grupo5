@@ -9,14 +9,9 @@ const router = createRouter({
       component:  () => import("../views/HomeView.vue"),
     },
     {
-      path: "/busqueda",
+      path: "/Busqueda",
       name: "busqueda",
       component: () => import("../views/BusquedaView.vue"),
-    },
-    {
-      path: "/Realizar-Reserva",
-      name: "RealizarReserva",
-      component: () => import("../views/RealizarReservaView.vue"),
     },
     {
       path: "/Login",
