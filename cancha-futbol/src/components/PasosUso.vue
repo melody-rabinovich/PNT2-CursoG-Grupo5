@@ -1,5 +1,5 @@
 <template>
-
+<div>
 <h1 class="text-center"> Reservá tu cancha en 4 pasos </h1>
 
 <div class="container div_pasos">
@@ -40,7 +40,7 @@
   </div>
 </div>
 
-
+</div>
 </template>
 
 <script>

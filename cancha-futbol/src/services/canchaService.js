@@ -29,17 +29,16 @@ export default {
         }
         */
     },
-    getDisponibilidadPorDia(id, datos){
-        return apiClient.get('/canchas/'+id+'/reservar', datos);
+    getDisponibilidadPorDia(id, mes, dia, ){
+        return apiClient.get('/canchas/'+id+'/reservar/mes='+mes+'/dia='+dia);
         /*
         {
-            "mes": "0",                                     //string
-            "dia": "0"                                      //string
+            nada
         }
         */
     },
     reservar(id, datos){
-        return apiClient.put('/canchas/'+id+'/reservar', datos);
+        return apiClient.post('/canchas/'+id+'/reservar', datos);
         /*
         {
             "fecha": "2023/01/01 00:00:00",                 //string
@@ -56,12 +55,11 @@ export default {
         }
         */
     },
-    cancelarReserva(id, idReserva){
-        return apiClient.delete('/canchas/'+id+'/MisReservas', idReserva);
+    cancelarReserva(id, mes, dia, idReserva){
+        return apiClient.delete('/canchas/'+id+'/MisReservas/mes='+mes+'/dia='+dia+'/'+idReserva);
         /*
         {
-            "fecha": "2023-01-01T03:00:00.000Z",            //string
-            "idReserva": "648ea097b7943c4cbc9d61e7"         //string
+            nada
         }
         */
     },

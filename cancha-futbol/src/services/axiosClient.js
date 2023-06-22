@@ -1,7 +1,6 @@
-import axios from 'axios'
-//import { useUserStore } from '../stores/user';
 
-// importar el store, sacar el user... 
+import axios from 'axios'
+import { useAuthStore } from '../stores/authStore.js';
 
 const axiosClient = axios.create({
     baseURL: 'http://localhost:3000',
@@ -9,9 +8,19 @@ const axiosClient = axios.create({
         'Accept': 'application/json',
         'Authorization': "",
         'Content-Type': 'application/json'
-        // configurar el token y pasarle user.token
     }
 })
+
+axiosClient.interceptors.request.use((config) => {
+    const authStore = useAuthStore();
+    const token = authStore.token;
+  
+    if (token) {
+      config.headers.Authorization = `${token}`;
+    }
+  
+    return config;
+  });
 
 export default {
     getApiClient() {

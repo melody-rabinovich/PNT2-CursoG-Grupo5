@@ -17,6 +17,16 @@ const router = createRouter({
       path: "/VistaRandom",
       name: "kesesto",
       component: () => import("../views/VistaRandom.vue"),
+    },
+    {
+      path: "/Login",
+      name: "Iniciá tu sesion",
+      component: () => import("../views/LoginView.vue"),
+    },
+    {
+      path: "/Register",
+      name: "Registrarse",
+      component: () => import("../views/RegisterView.vue"),
     }
   ],
 });

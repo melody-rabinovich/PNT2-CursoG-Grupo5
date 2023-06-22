@@ -46,19 +46,19 @@ export default {
         }
         */
     },
-    getMisReservas(id, datos){
-        return apiClient.get('/usuarios/'+id+'/MisReservas', datos);
+    getMisReservas(id){
+        return apiClient.get('/usuarios/'+id+'/MisReservas');
         /*
         {
-            "mail": "(esto es un mail)"                     //string
+            nada
         }
         */
     },
     cancelarReserva(id, idReserva){
-        return apiClient.delete('/usuarios/'+id+'/MisReservas', idReserva);
+        return apiClient.delete('/usuarios/'+id+'/MisReservas'+idReserva);
         /*
         {
-            "idReserva": "648f9eee0b182076563d0d10"         //string
+            nada
         }
         */
     },
