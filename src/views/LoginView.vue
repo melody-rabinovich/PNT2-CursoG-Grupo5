@@ -70,6 +70,8 @@ export default {
         console.log("3 token guardado "+authStore.token);
         authStore.setRol(response.data.usuario.rol);
         console.log("4 rol guardado "+authStore.rol);
+        authStore.setId(response.data.usuario._id);
+        console.log("5 id guardado "+authStore._id);
         this.$router.push('/');
       })
       .catch((error) => console.log('error:', error.response))

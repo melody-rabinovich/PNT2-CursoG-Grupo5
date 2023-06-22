@@ -39,15 +39,15 @@
                 <td
                   v-for="(horaDisponible, index2) in this.horariosDisponibles[index]"
                   :key="index2"
-                >{{ horaDisponible }}
-<!--                  <button
+                >
+                  <button
                     class="button"
-                    :class="{ active: horaDisponible === cancha.horaSeleccionada }"
-                    @click="seleccionarHora(horaDisponible, cancha)"
-                    :disabled="!puedeReservar(cancha, horaDisponible)"
+                    @click="seleccionarHora(horaDisponible, cancha.numero)"
+                    :disabled="botonseleccionado(horaDisponible, cancha.numero)"
+                    :class="{ 'button-selected': botonseleccionado(horaDisponible, cancha.numero) }"
                   >
                     {{ horaDisponible }}
-                  </button>-->
+                  </button>
                 </td>
               </tr>
             </table>
@@ -55,19 +55,13 @@
           <td>{{ cancha.tamanio }}</td>
           <td>{{ cancha.precio }}</td>
           <td>
+            <div class="horarios-disponibles">
             <button
               class="button button-reserva"
-              :disabled="!puedeReservar(cancha)"
-            >
-              <router-link
-                :to="{
-                  path: '/RealizarReserva',
-                  query: reservaSeleccionada,
-                }"
-              >
+              @click="reservar(cancha.numero)">
                 RESERVAR
-              </router-link>
             </button>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -84,6 +78,7 @@
 <script>
 import Navegador from '../components/Navegador.vue'
 import canchaService from '../services/canchaService.js';
+import { useAuthStore } from '../stores/authStore.js';
 
 export default {
   name: "BusquedaCanchas",
@@ -96,9 +91,13 @@ export default {
       currentWeek: new Date(), // Fecha actual
       canchas: this.getCanchas(),
       horariosDisponibles: [],
+      canchaSeleccionada: null,
       horaSeleccionada: null,
       diaSeleccionado: null,
       mesSeleccionado: null,
+      mesReserva: null,
+      diaReserva: null,
+      horaReserva: null
     };
   },
   mounted() {
@@ -211,35 +210,51 @@ export default {
       console.log(this.horariosDisponibles[0])
       console.log(this.horariosDisponibles[1])
       console.log(this.horariosDisponibles.length)
+
+      this.mesReserva = mesConsulta;
+      this.diaReserva = diaConsulta;
+      this.horaReserva = null
     },
-    seleccionarHora(hora, cancha) {
+    seleccionarHora(hora, numeroCancha) {
+      console.log("seleccionando hora, estaba en: "+this.horaSeleccionada);
+      if (this.canchaSeleccionada === numeroCancha) {
+      // Si la cancha seleccionada es la misma, deselecciona la hora
+      this.horaSeleccionada = null;
+      this.canchaSeleccionada = null;
+      } else {
+      // Si la cancha seleccionada es diferente, establece la nueva hora y cancha seleccionada
       this.horaSeleccionada = hora;
-      cancha.horaSeleccionada = hora;
-      this.reservaSeleccionada = {
-        cancha: cancha.nombreCancha,
-        hora: hora,
-        precio: cancha.precio,
-      };
+      this.canchaSeleccionada = numeroCancha;
+      }
+      console.log("seleccionando hora, ahora está en: "+hora);
+      this.horaReserva = hora;
+      console.log(this.horaReserva);
     },
-    puedeReservar(cancha, hora) {
-      return cancha.horaSeleccionada === hora;
+    botonseleccionado(hora, numeroCancha) {
+      console.log("el botón estaba seleccionado? "+hora);
+      this.horaSeleccionada == hora && this.canchaSeleccionada == numeroCancha;
+      console.log("el botón está seleccionado? "+hora);
+      return this.horaSeleccionada == hora && this.canchaSeleccionada == numeroCancha;
+
+    },
+    async reservar(numeroCancha) {
+      const authStore = useAuthStore();
+      const datos = {
+        "mes": this.mesReserva,
+        "dia": this.diaReserva,
+        "hora": this.horaReserva,
+        "idUsuario": authStore._id,
+    }
+    try{
+      const response = await canchaService.reservar(numeroCancha, datos);
+      console.log("Se generó la reserva: "+response.data);
+      this.$router.push('/');//Pushear a /MisReservas o similar
+    } catch (error) {
+      console.log("Se produjo un error: ", error);
+    }
     },
   },
   computed: {
-    reservaSeleccionada() {
-      const canchaSeleccionada = this.canchas.find(
-        (cancha) => cancha.horaSeleccionada !== null
-      );
-      if (canchaSeleccionada) {
-        return {
-          cancha: canchaSeleccionada.nombreCancha,
-          hora: canchaSeleccionada.horaSeleccionada,
-          precio: canchaSeleccionada.precio,
-        };
-      } else {
-        return {};
-      }
-    },
   },
 };
 </script>
@@ -410,10 +425,10 @@ input {
 }
 
 .container {
-  position: fixed;
+/*  position: fixed;*/
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+/*  transform: translate(-50%, -50%);*/
   background-color: #66a6da;
   padding: 20px;
   margin-bottom: 20px;
@@ -424,4 +439,15 @@ input {
   margin-bottom: 10px;
 }
 
+.horarios-disponibles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.button-selected {
+  background-color: #3f51b5;
+  color: #fff;
+  transform: scale(2);
+}
 </style>

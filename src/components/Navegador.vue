@@ -23,7 +23,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <router-link class="nav-link text-white" to="/Busqueda"
-              >Buscar Cancha</router-link
+              >Buscar cancha</router-link
             >
           </li>
           <li class="nav-item">
