@@ -1,44 +1,16 @@
 <template>
     <div class="ui container">
     <h1>Busqueda de canchas</h1>
-
-      <input v-model="filterBy" placeholder="Filter By Last Name">
-      <table class="ui celled table">
-        <thead>
-          <tr>
-            <th>Avatar</th>
-            <th @click="sortBy = 'nombreCancha'">Cancha</th>
-            <th @click="sortBy = 'horariosDisponibles'">horariosDisponibles</th>
-            <th @click="sortBy = 'capacidad'">capacidad</th>
-            <th @click="sortBy = 'precio'">precio</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(cancha, index) in sortedCanchas" :key="index">
-            <td>
-              <img :src="cancha.photoUrl" class="ui mini rounded image" />
-            </td>
-            <td>{{ cancha.nombreCancha }}</td>
-            <td>{{ cancha.horariosDisponibles }}</td>
-            <td>{{ cancha.capacidad }}</td>
-            <td>{{ cancha.precio }}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th colspan="6">{{sortedCanchas.length}} canchas</th>
-          </tr>
-        </tfoot>
-      </table>
+    <BusquedaCanchas/>
     </div>
   </template>
   
   <script>
 import BusquedaCanchas from '../components/BusquedaCanchas.vue';
     export default {
-      name: 'BusquedaCanchas',
-      components {
-        BusquedaCanchas
+      name: 'BusquedaView',
+      components :{
+        BusquedaCanchas,
       },
       data() {
         return {

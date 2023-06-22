@@ -1,4 +1,5 @@
 <template>
+  <div class="date-carousel-container">
   <div class="date-carousel">
     <button class="arrow-button" @click="previousWeek">&#8249;</button>
     <div
@@ -6,7 +7,7 @@
       :key="index"
       class="box_date"
       :data-id="date.id"
-      @click="createGrid(date)"
+      @click="onDayClicked(date,this)" 
     >
       <span v-bind:class = "(date.enabled)?'':'disabled'" class="dia">{{ date.day.toUpperCase() }}</span>
       <span class="mes">{{ date.month.toUpperCase() }}</span>
@@ -14,20 +15,33 @@
     </div>
     <button class="arrow-button" @click="nextWeek">&#8250;</button>
   </div>
+  <div class="horarios-container">
+
+  </div>
+</div>
 </template>
 
 <script>
+import axios from "axios"
 export default {
   name: "DateCarousel",
   data() {
     return {
       dates: [],
       currentWeek: new Date(), // Fecha actual
+      reservas:[]
     };
   },
-
+  props: ['cancha'],
   mounted() {
     this.generateDates();
+    axios.get('https://api.example.com/data')
+      .then(response => {
+        this.responseData = response.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
   },
   methods: {
     generateDates() {
@@ -82,9 +96,23 @@ export default {
   result.setDate(result.getDate() + days);
   return result;
 },
-createGrid(date) {
-  console.log("Clicked date:", date);
+conseguirReservasDelDia(){
 
+},
+onDayClicked(date,elemento){
+  axios.get(' http://localhost:3000/canchas/1/reservar/mes=6/dia=22')
+        .then(response => {
+          this.responseData = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+  this.conseguirReservasDelDia()
+this.createGrid(date,elemento)
+},
+createGrid(date,elemento) {
+  console.log("Clicked date:", date);
+  elemento.$el.querySelector(".horarios-container").innerHTML = "";
 const gridDiv = document.createElement("table");
 gridDiv.classList.add("date-table");
 
@@ -108,10 +136,13 @@ for (let i = 0; i < numberOfCells; i++) {
   selectionRow.appendChild(document.createElement("td"))
 
 }
+let titulo = document.createElement("h4")
+titulo.innerText = date.day + " "  + date.date;
 
+elemento.$el.querySelector(".horarios-container").appendChild(titulo)
   gridDiv.appendChild(timeRow);
   gridDiv.appendChild(selectionRow);
-document.querySelector(".container").appendChild(gridDiv);
+  elemento.$el.querySelector(".horarios-container").appendChild(gridDiv);
     },
   },
 };
@@ -139,7 +170,6 @@ document.querySelector(".container").appendChild(gridDiv);
 }
 
 .date-carousel {
-  margin-top: 5rem;
   margin-left: 10rem;
   margin-right: 10rem;
   margin-bottom: 5rem;

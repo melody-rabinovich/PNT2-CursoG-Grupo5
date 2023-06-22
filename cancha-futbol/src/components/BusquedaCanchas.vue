@@ -1,12 +1,12 @@
 
 
 <template>
-    <div class="ui container">
-    <h1>Busqueda de canchas</h1>
+    <div>
+    <!-- <h1>Busqueda de canchas</h1>
 
       <input v-model="filterBy" placeholder="Filter By Last Name">
-      <table class="ui celled table">
-        <thead>
+      <table class="ui celled table"> -->
+        <!-- <thead>
           <tr>
             <th>Avatar</th>
             <th @click="sortBy = 'nombreCancha'">Cancha</th>
@@ -14,30 +14,40 @@
             <th @click="sortBy = 'capacidad'">capacidad</th>
             <th @click="sortBy = 'precio'">precio</th>
           </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(cancha, index) in sortedCanchas" :key="index">
-            <DateCarousel/>
-            <td>
-              <img :src="cancha.photoUrl" class="ui mini rounded image" />
+        </thead> -->
+        <!-- <tbody> -->
+          <div v-for="(cancha, index) in canchas" :key="index">
+            <h3>{{ cancha.nombreCancha }}</h3>
+            <div>
+              <!-- <div class="cancha-image-container">
+                <img :src="cancha.photoUrl" class="cancha-image" />
+                
+              </div> -->
+              <!-- <h3>{{cancha.nombre}}</h3> -->
+              <DateCarousel :cancha="cancha"/>
+            </div>
+            
+            <!-- <td>
+              
             </td>
-            <td>{{ cancha.nombreCancha }}</td>
+            <td></td>
             <td>{{ cancha.horariosDisponibles }}</td>
             <td>{{ cancha.capacidad }}</td>
-            <td>{{ cancha.precio }}</td>
-          </tr>
-        </tbody>
-        <tfoot>
+            <td>{{ cancha.precio }}</td> -->
+          </div>
+        <!-- </tbody> -->
+        <!-- <tfoot>
           <tr>
             <th colspan="6">{{sortedCanchas.length}} canchas</th>
           </tr>
         </tfoot>
-      </table>
+      </table> -->
     </div>
   </template>
   
   <script>
 import DateCarousel from './DateCarrousel.vue';
+import axios from "axios"
     export default {
       name: 'BusquedaCanchas',
       components: {
@@ -45,24 +55,7 @@ import DateCarousel from './DateCarrousel.vue';
         },
       data() {
         return {
-          canchas: [
-             {
-              "nombreCancha": "Messi",
-              "id": "1",
-              "photoUrl": "https://randomuser.me/api/portraits/thumb/women/9.jpg",
-              "horariosDisponibles": [12,22,10],
-              "capacidad": 7,
-              "precio": 3000
-             },
-             {
-              "nombreCancha": "Canchita",
-              "id": "2",
-              "photoUrl": "https://randomuser.me/api/portraits/thumb/women/79.jpg",
-              "horariosDisponibles":[1,2,4],
-              "capacidad": 5,
-              "precio": 5000
-             }
-          ],
+          canchas: [],
           sortBy: "horariosDisponibles",
           filterBy: ""
         }
@@ -89,21 +82,39 @@ import DateCarousel from './DateCarrousel.vue';
             }
         },
       computed: {
-        sortedCanchas() {
+        // sortedCanchas() {
             
 
-          return this.canchas.map(l=>l).filter(
-            employee => employee.nombreCancha.includes(this.filterBy)
-          ).sort(
-            (a, b) => {let sortFunction = this.sortByType([this.sortBy]);console.log("this.sortBy]",this.sortBy);return sortFunction(a[this.sortBy],b[this.sortBy])}
-          );
+        //   return this.canchas.map(l=>l).filter(
+        //     employee => employee.nombreCancha.includes(this.filterBy)
+        //   ).sort(
+        //     (a, b) => {let sortFunction = this.sortByType([this.sortBy]);console.log("this.sortBy]",this.sortBy);return sortFunction(a[this.sortBy],b[this.sortBy])}
+        //   );
         
-        }
-      }
+        // }
+      },
+      mounted() {
+        const axiosClient = axios.create({
+    baseURL: 'http://localhost:3000',
+    headers: {
+        'Accept': 'application/json',
+        'Authorization': "",
+        'Content-Type': 'application/json'
+        // configurar el token y pasarle user.token
+    }})
+    axiosClient.get('/canchas/')
+      .then(response => {
+        console.log(response)
+        this.canchas = response.data;
+      })
+      .catch(error => {
+        console.error("error axios",error);
+      });
+  }
       
     }
   </script>
-<!--   
+  
   <style scoped>
     h1.ui.center.header {
       margin-top: 3em;
@@ -116,4 +127,13 @@ import DateCarousel from './DateCarrousel.vue';
     input {
       padding: 3px;
     }
-  </style> -->
+    .cancha-image-container{
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+    .cancha-image{
+      width: 100%;
+      height: 100%;
+    }
+  </style>
