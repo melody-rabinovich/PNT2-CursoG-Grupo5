@@ -18,65 +18,68 @@
     </div>
     <button class="arrow-button" @click="nextWeek">&#8250;</button>
     </div>
-    <table class="ui celled table custom-table">
-      <thead>
-        <tr>
-          <th>Número</th>
-          <th>Nombre</th>
-          <th>Horarios disponibles para el {{ diaSeleccionado }} de {{ mesSeleccionado }}</th>
-          <th>Tamaño</th>
-          <th>Precio</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(cancha, index) in canchas" :key="index">
-          <td>{{ cancha.numero }}</td>
-          <td>{{ cancha.nombre }}</td>
-          <td>
-            <table>
-              <tr>
-                <td
-                  v-for="(horaDisponible, index2) in this.horariosDisponibles[index]"
-                  :key="index2"
-                >
-                  <button
-                    class="button"
-                    @click="seleccionarHora(horaDisponible, cancha.numero)"
-                    :disabled="botonseleccionado(horaDisponible, cancha.numero)"
-                    :class="{ 'button-selected': botonseleccionado(horaDisponible, cancha.numero) }"
+    <div>
+      <table class="ui celled table custom-table">
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Nombre</th>
+            <th>Horarios disponibles para el {{ diaSeleccionado }} de {{ mesSeleccionado }}</th>
+            <th>Tamaño</th>
+            <th>Precio</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(cancha, index) in canchas" :key="index">
+            <td>{{ cancha.numero }}</td>
+            <td>{{ cancha.nombre }}</td>
+            <td>
+              <table>
+                <tr>
+                  <td
+                    v-for="(horaDisponible, index2) in this.horariosDisponibles[index]"
+                    :key="index2"
                   >
-                    {{ horaDisponible }}:00
-                  </button>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td>{{ cancha.tamanio }}</td>
-          <td>{{ cancha.precio }}</td>
-          <td>
-            <div class="horarios-disponibles">
-            <button
-              class="button button-reserva"
-              @click="reservar(cancha.numero)">
-                RESERVAR
-            </button>
-            <button
-            v-if="isAdmin()"
-              class="button button-reserva"
-              @click="verReservasCancha(cancha.numero)">
-                VER RESERVAS
-            </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <th colspan="6">{{ canchas.length }} canchas</th>
-        </tr>
-      </tfoot>
-    </table>
+                    <button
+                      class="button"
+                      @click="seleccionarHora(horaDisponible, cancha.numero)"
+                      :disabled="botonseleccionado(horaDisponible, cancha.numero)"
+                      :class="{ 'button-selected': botonseleccionado(horaDisponible, cancha.numero) }"
+                    >
+                      {{ horaDisponible }}:00
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td>{{ cancha.tamanio }}</td>
+            <td>{{ cancha.precio }}</td>
+            <td>
+              <div class="horarios-disponibles">
+              <button
+                class="button button-reserva"
+                @click="reservar(cancha.numero)">
+                  RESERVAR
+              </button>
+              <button
+              v-if="isAdmin()"
+                class="button button-reserva"
+                @click="verReservasCancha(cancha.numero)">
+                  VER RESERVAS
+              </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="6">{{ canchas.length }} canchas</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    
   </div>
 </div>
 </template>
