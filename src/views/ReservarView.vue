@@ -18,7 +18,7 @@
     </div>
     <button class="arrow-button" @click="nextWeek">&#8250;</button>
     </div>
-    <div>
+    <div  style="overflow: scroll; max-width: 100%;">
       <table class="ui celled table custom-table">
         <thead>
           <tr>
