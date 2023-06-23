@@ -6,7 +6,6 @@
     <div class="container div_pasos">
       <div class="row">
         <div class="col-md-6">
-          <!-- estaría bueno que lleve al buscador -->
           <div class="left-div pasoItemIzquierda pasos_item">
             <h3>1. Buscá tu cancha más cercana</h3>
             <p>
@@ -75,12 +74,10 @@
     padding: 1em;
     border-radius: 17px;
     height: 13rem;
-    height: auto; /* Cambiado a "auto" para ajustar el tamaño al contenido */
+    height: auto;
     background-color: #bcd3e5;
   }
   
-  /* no me gusta que dé la sensación de que hay alguna acción al dar click. 
-      Pero tampoco me convence que quede estático */
   .pasos_item:hover {
     transform: scale(1.05);
   }

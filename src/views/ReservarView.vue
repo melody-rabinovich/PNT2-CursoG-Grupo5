@@ -106,8 +106,8 @@ export default {
       horaReserva: null
     };
   },
-  mounted() {
-    this.generateDates();
+  async mounted() {
+    await this.generateDates();
     const daysOfWeek = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
       const months = [
         "Ene",
@@ -137,7 +137,8 @@ export default {
       enabled:date>=this.addDays(new Date(),-1)
     }
 
-    this.setFecha(fechaInicializada);
+    await this.setFecha(fechaInicializada);
+    console.log(this.horariosDisponibles)
 
   },
   methods: {
@@ -210,12 +211,11 @@ export default {
       let diaConsulta = ((new Date(date.id)).getDate());
       console.log("Clicked month:", mesConsulta);
       console.log("Clicked day:", diaConsulta);
+      await this.getCanchas()
       for(let i = 0; i < this.canchas.length; i++){
-        this.horariosDisponibles.push((await canchaService.getDisponibilidadPorDia(this.canchas[i].numero, mesConsulta, diaConsulta)).data.response);
+        let horario = await canchaService.getDisponibilidadPorDia(this.canchas[i].numero, mesConsulta, diaConsulta);
+        this.horariosDisponibles.push(horario.data.response);
       }
-      console.log(this.horariosDisponibles[0])
-      console.log(this.horariosDisponibles[1])
-      console.log(this.horariosDisponibles.length)
 
       this.mesReserva = mesConsulta;
       this.diaReserva = diaConsulta;
